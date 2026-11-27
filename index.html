@@ -1,1 +1,55 @@
-
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mohamed Ghazal</title>
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;font-family:Tahoma,"Segoe UI",Arial,sans-serif;background:#f3f5f9;color:#1d2433;
+       min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+  .card{background:#fff;max-width:440px;width:100%;border-radius:16px;padding:28px 22px;
+        box-shadow:0 6px 24px rgba(0,0,0,.08);text-align:center}
+  h1{font-size:20px;margin:0 0 8px}
+  p{color:#5b6475;line-height:1.7;margin:6px 0 18px;font-size:15px}
+  .btn{display:block;width:100%;padding:14px;border:0;border-radius:12px;font-size:16px;
+       font-weight:bold;cursor:pointer;text-decoration:none;margin-bottom:10px;font-family:inherit}
+  .primary{background:#1a73e8;color:#fff}
+  .ghost{background:#eef2f8;color:#1d2433}
+  .hint{font-size:13px;color:#7a8396;margin-top:14px;line-height:1.7}
+  .spinner{width:38px;height:38px;border:4px solid #e3e8f0;border-top-color:#1a73e8;border-radius:50%;
+           margin:0 auto 16px;animation:spin 1s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="spinner"></div>
+  <h1>جاري الفتح في المتصفح…</h1>
+  <p>لو الصفحة مافتحتش لوحدها، اضغط الزرار اللي تحت.</p>
+  <a class="btn primary" id="openBtn" href="#">افتح في المتصفح</a>
+  <a class="btn ghost" id="directBtn" href="https://mohamedghazal.com">افتح هنا عادي</a>
+  <div class="hint">
+    لو برضه فتح جوه تليجرام: اضغط على <b>⋮</b> فوق واختار
+    <b>Open in Chrome</b> أو <b>فتح في المتصفح</b>.
+  </div>
+</div>
+<script>
+(function () {
+  var target = "https://mohamedghazal.com";
+  var ua = navigator.userAgent || "";
+  var isAndroid = /android/i.test(ua);
+  var isIOS = /iphone|ipad|ipod/i.test(ua);
+  var ext = target;
+  if (isAndroid) {
+    ext = "intent://mohamedghazal.com#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=" +
+          encodeURIComponent(target) + ";end";
+  } else if (isIOS) {
+    ext = "x-safari-" + target;
+  }
+  document.getElementById("openBtn").href = ext;
+  if (isAndroid || isIOS) { location.href = ext; } else { location.replace(target); }
+})();
+</script>
+</body>
+</html>
